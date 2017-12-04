@@ -51,7 +51,7 @@ sudo: unable to initialize policy plugin
 	5. 编辑sudoers文件至正确
 	6. reboot重启系统
 
-## 附默认`/etc/sudoers`文件内容
+## 附：ubuntu_14.04默认`/etc/sudoers`文件内容
 
 ```
 #
