@@ -448,7 +448,7 @@ public class RedisUtil {
 
 ```java
 @Cacheable(value = "redis-users", key = "#userId")
-public UserDomain4RedisCacheTest getUserByID(String userId) {
+public User getUserByID(String userId) {
   return geneUserById(userId);
 }
 ```
@@ -465,7 +465,7 @@ public UserDomain4RedisCacheTest getUserByID(String userId) {
   @Cacheable(value = {"cache1", "cache2"}) // 多个cache
   ```
 
-- **key**：指定缓存的key，该属性支持SpringEL表达式。未指定该属性时，将使用默认策略生成key，默认策略定义于 `org.szfs.basic.middle.redis.SzfsRedisCacheConfig.keyGenerator()` 中。
+- **key**：指定缓存的key，该属性支持SpringEL表达式。未指定该属性时，将使用默认策略生成key。
 
   ```java
   @Cacheable(value="redis-users", key="#id")
@@ -488,7 +488,7 @@ public UserDomain4RedisCacheTest getUserByID(String userId) {
   public User find(User user)
   ```
 
-有关于 `@Cacheable` 的更多配置项及说明可以通过2.1中的参考文档了解。
+有关于 `@Cacheable` 的更多配置项及说明可以通过第二章中的参考文档了解。
 
 ### 5.2 缓存服务场景 - 更新
 
@@ -498,10 +498,7 @@ public UserDomain4RedisCacheTest getUserByID(String userId) {
 
 ```java
 @CacheEvict(value = "redis-users", key = "#userId")
-public User updateUserByID(String userId) {
-  dao.save(dao.getUserById(userId).setUpdateTime());
-  return user;
-}
+public User updateUserByID(String userId)
 ```
 
 `@CacheEvict` 配置项说明见下节。
@@ -514,9 +511,7 @@ public User updateUserByID(String userId) {
 
 ```java
 @CacheEvict(value = "redis-users", key = "#userId")
-public int deleteUserByID(String userId) {
-  return dao.deleteUserById(userId);
-}
+public int deleteUserByID(String userId)
 ```
 
 `@CacheEvict` 配置项与 `@Cacheable` 也基本相同，值得一提的是其allEntries和beforeInvocation属性。

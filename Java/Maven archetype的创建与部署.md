@@ -33,17 +33,17 @@
 
 执行成功以后，在项目的target文件夹中会出现以下目录与文件：
 
----generated-sources
+-generated-sources
 
-   ---archetype
+---archetype
 
-​      ---project files
+------project files
 
-​         ---src
+---------src
 
-​         ---target
+---------target
 
-​         ---pom.xml
+---------pom.xml
 
 进入到archetype目录：
 
