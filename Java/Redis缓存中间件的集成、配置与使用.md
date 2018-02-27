@@ -527,71 +527,71 @@ public int deleteUserByID(String userId)
 
 ```java
 public void changePosition(String positionId, int change) {
-  final Lock lock = redisLockRegistry.obtain(positionId);
-  try {
-    if (lock.tryLock(RETRY_TIMEOUT, TimeUnit.SECONDS)) { // 尝试获取锁
-      Integer oldPosition = RedisUtil.get(redisTemplate, positionId, Integer.class); // 查找头寸
-
-      // 设置头寸开始
-      if (null == oldPosition) {
-        // 如果缓存中不存在头寸，则将change视为初始头寸，存入缓存
-        RedisUtil.setWithDefaultExpire(redisTemplate, positionId, change);
-      } else {
-        // 如果缓存中存在头寸，则计算修改后的头寸，存入缓存
-        RedisUtil.setWithDefaultExpire(redisTemplate, positionId, oldPosition + change);
-      }
-      // 设置头寸结束
-    } else {
-      LogUtil.warn(logger, "头寸修改获取锁失败,id={0},change={1}", positionId, change);
-    }
-  } catch (Exception e) {
-    LogUtil.error(e, logger, "头寸修改失败,id={0},change={1}", positionId, change);
-  } finally {
+    final Lock lock = redisLockRegistry.obtain(positionId);
     try {
-      lock.unlock();
-    } catch (IllegalStateException e) {
-      LogUtil.error(e, logger, "头寸修改尝试解锁异常");
+        if (lock.tryLock(RETRY_TIMEOUT, TimeUnit.SECONDS)) { // 尝试获取锁
+            Integer oldPosition = RedisUtil.get(redisTemplate, positionId, Integer.class); // 查找头寸
+
+            // 设置头寸开始
+            if (null == oldPosition) {
+                // 如果缓存中不存在头寸，则将change视为初始头寸，存入缓存
+                RedisUtil.setWithDefaultExpire(redisTemplate, positionId, change);
+            } else {
+                // 如果缓存中存在头寸，则计算修改后的头寸，存入缓存
+                RedisUtil.setWithDefaultExpire(redisTemplate, positionId, oldPosition + change);
+            }
+            // 设置头寸结束
+        } else {
+            LogUtil.warn(logger, "头寸修改获取锁失败,id={0},change={1}", positionId, change);
+        }
+    } catch (Exception e) {
+        LogUtil.error(e, logger, "头寸修改失败,id={0},change={1}", positionId, change);
+    } finally {
+        try {
+            lock.unlock();
+        } catch (IllegalStateException e) {
+            LogUtil.error(e, logger, "头寸修改尝试解锁异常");
+        }
     }
-  }
 }
 
 /**
-     * 测试分布式锁服务
-     * <p>每隔0.5秒创建并启动一个线程，共启动10个线程；</p>
-     * <p>对于每个线程：每隔0.5秒对头寸增加1，共增加5次；</p>
-     * <p>主线程创建完最后一个线程后，阻塞10秒以等待其余线程执行完毕，然后取头寸值，预期为50。</p>
-     * 
-     * @throws InterruptedException
-     */
-    @Test
-    public void testChangePosition() throws InterruptedException {
-        Assert.assertNull(RedisUtil.get(redisTemplate, positionId)); // 初始缓存中对应头寸数据为空
-        for (int i = 0; i < 10; i++) {
-            // 每隔0.5秒新建并启动一个线程，共启动10个线程
-            new Thread("thread_" + i) {
-                public void run() {
-                    // 每个线程每隔0.5秒头寸+1，执行5次
-                    for (int i = 0; i < 5; i++) {
-                        positionService4RedisCacheTest.changePosition(positionId, 1);
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            LogUtil.error(e, logger, "InterruptedException");
-                        }
+ * 测试分布式锁服务
+ * <p>每隔0.5秒创建并启动一个线程，共启动10个线程；</p>
+ * <p>对于每个线程：每隔0.5秒对头寸增加1，共增加5次；</p>
+ * <p>主线程创建完最后一个线程后，阻塞10秒以等待其余线程执行完毕，然后取头寸值，预期为50。</p>
+ * 
+ * @throws InterruptedException
+ */
+@Test
+public void testChangePosition() throws InterruptedException {
+    Assert.assertNull(RedisUtil.get(redisTemplate, positionId)); // 初始缓存中对应头寸数据为空
+    for (int i = 0; i < 10; i++) {
+        // 每隔0.5秒新建并启动一个线程，共启动10个线程
+        new Thread("thread_" + i) {
+            public void run() {
+                // 每个线程每隔0.5秒头寸+1，执行5次
+                for (int i = 0; i < 5; i++) {
+                    positionService4RedisCacheTest.changePosition(positionId, 1);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        LogUtil.error(e, logger, "InterruptedException");
                     }
                 }
-            }.start();
-            Thread.sleep(500);
-        }
-
-        try {
-            Thread.sleep(10 * 1000); // 确保上述线程执行结束
-        } catch (InterruptedException e) {
-            LogUtil.error(e, logger, "InterruptedException");
-        }
-
-        Assert.assertEquals(Integer.valueOf(50), positionService4RedisCacheTest.getPosition(positionId)); // 预期头寸值为50
-
+            }
+        }.start();
+        Thread.sleep(500);
     }
+
+    try {
+        Thread.sleep(10 * 1000); // 确保上述线程执行结束
+    } catch (InterruptedException e) {
+        LogUtil.error(e, logger, "InterruptedException");
+    }
+
+    Assert.assertEquals(Integer.valueOf(50), positionService4RedisCacheTest.getPosition(positionId)); // 预期头寸值为50
+
+}
 ```
 
