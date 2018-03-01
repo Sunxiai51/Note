@@ -2,7 +2,7 @@
 
 本文档基于 [Apache Kafka官网](http://kafka.apache.org/) 进行翻译和整理，以梳理知识点，便于读者更快地了解与学习Kafka。
 
-Kafka单节点部署步骤您可参考：[Kafka单节点部署](https://github.com/Sunxiai51/Note/blob/master/Java/Kafka%E5%8D%95%E8%8A%82%E7%82%B9%E9%83%A8%E7%BD%B2.md)
+Kafka部署步骤可参考：[Kafka部署](https://github.com/Sunxiai51/Note/blob/master/Java/Kafka%E9%83%A8%E7%BD%B2.md)
 
 # 1. 定义与意义
 
