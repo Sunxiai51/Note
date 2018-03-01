@@ -1,6 +1,6 @@
-# Kafka单节点部署
+# Kafka部署
 
-# 1. 服务端部署
+# 1. 服务端单节点部署
 
 ## 1.1 下载并解压
 
@@ -48,7 +48,7 @@ Kafka运行依赖于Zookeeper。如果仅作测试，可以选择使用Kafka自�
 > bin/kafka-server-start.sh config/server.properties
 ```
 
-在启动时遇到了一条 `sed` 命令的语法错误（笔者操作系统版本为：SUSE Linux Enterprise Server 11 SP4  (x86_64)），经检查是 `kafka_2.11-1.0.0/bin/kafka-run-class.sh` 脚本中的以下语句报错：
+在启动时遇到了一条 `sed` 命令的语法错误（笔者操作系统为：SUSE Linux Enterprise Server 11 SP4），经检查是 `kafka_2.11-1.0.0/bin/kafka-run-class.sh` 脚本中的以下语句报错：
 
 ```shell
 # the first segment of the version number, which is '1' for releases before Java 9
@@ -61,7 +61,7 @@ else
 fi
 ```
 
-提示 `sed` 命令不支持 `-E` 的选项。为消除这个错误，笔者将对 `JAVA_MAJOR_VERSION` 的赋值部分改为了：
+提示 `sed` 命令不支持 `-E` 的选项。为消除这个错误，考虑到本地环境为JDK1.8，笔者将 `JAVA_MAJOR_VERSION` 的赋值改为了：
 
 ```shell
 JAVA_MAJOR_VERSION=1
@@ -142,29 +142,18 @@ import com.sunveee.template.ssm.util.LogUtil;
 public class KafkaUtils {
     private final static Logger             logger            = LoggerFactory.getLogger(KafkaUtils.class);
 
-    /**
-     * 生产者
-     */
+    /** 生产者 */
     private static Producer<String, String> producer;
-    /**
-     * 消费者
-     */
+    /** 消费者 */
     private static Consumer<String, String> consumer;
-    /**
-     * 服务器地址，多个地址以英文半角逗号隔开
-     */
+    /** 服务器地址，多个地址以英文半角逗号隔开 */
     private static final String             BOOTSTRAP_SERVERS = "168.33.66.151:9092";
-    /**
-     * 所使用的topic，注意：该topic无法在客户端创建，需要在服务器端通过脚本创建
-     */
+    /** 所使用的topic，注意：该topic无法在客户端创建，需要在服务器端通过脚本创建 */
     private static final String             TOPIC_NAME        = "test";
 
-    private KafkaUtils() {
-    }
+    private KafkaUtils() {}
 
-    /** 
-     * 生产者配置
-     */
+    /** 生产者配置 */
     static {
         Properties props = new Properties();
         props.put("bootstrap.servers", BOOTSTRAP_SERVERS);
@@ -178,9 +167,7 @@ public class KafkaUtils {
         producer = new KafkaProducer<>(props);
     }
 
-    /** 
-     * 消费者配置
-     */
+    /** 消费者配置 */
     static {
         Properties props = new Properties();
         props.put("bootstrap.servers", BOOTSTRAP_SERVERS);
@@ -205,7 +192,6 @@ public class KafkaUtils {
     public static Future<RecordMetadata> sendMsgToKafka(String topic, String key, String msg) {
         // 发送消息，这之前可能需要对输入的topic进行校验：该topic是否配置在了TOPIC_NAMES中
         Future<RecordMetadata> result = producer.send(new ProducerRecord<String, String>(topic, String.valueOf(new Date().getTime()), msg));
-
         LogUtil.info(logger, "发送消息返回:{0}", JSON.toJSONString(result));
         return result;
     }
@@ -225,17 +211,10 @@ public class KafkaUtils {
         }
     }
 
-    public static Consumer<String, String> getKafkaConsumer() {
-        return consumer;
-    }
-
     public static void closeKafkaProducer() {
         producer.close();
     }
 
-    public static void closeKafkaConsumer() {
-        consumer.close();
-    }
 }
 ```
 
