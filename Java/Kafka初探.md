@@ -77,9 +77,9 @@ Consumer使用group name来标识自己，每个发布到topic的记录都将投
 
 ## 2.5 Guarantees
 
-高级别的Kafka上提供以下保证:
+高级别的Kafka提供以下保证：
 
-- 由producer发送到特定partition的消息将按发送顺序追加。即，如果记录M1由与记录M2相同的producer发送，并且首先发送M1，则M1的offset将比M2低，并在日志中较早显示。
-- 每个Consumer按记录在日志中的存储顺序查看。
+- 由producer发送到特定partition的消息将按发送顺序追加。即：如果记录M1由与记录M2相同的producer发送，并且首先发送M1，则M1的offset将比M2低，并在日志中较早显示。
+- 每个consumer按记录在日志中的存储顺序查看。
 - 对于具有复制因子N的topic，N-1的服务器故障不会丢失已提交到日志的任何记录。
 
