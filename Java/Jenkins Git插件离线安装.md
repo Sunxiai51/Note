@@ -8,7 +8,6 @@ Jenkins部署的服务器没有连接外网时，可以通过下载 `.hpi` 文�
 
 以下为安装Jenkins Git插件时可行的安装顺序之一（由上至下）：
 
-```
 structs
 credentials
 display-url-api
@@ -25,5 +24,4 @@ apache-httpcomponents-client-4-api
 jsch
 git-client
 git
-```
 
