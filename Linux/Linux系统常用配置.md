@@ -22,50 +22,60 @@ export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 
 # 3. 设置网络
 
-## 3.1 SUSE
+## 3.1 设置IP
 
-1. 设置IP
+即时生效：
 
-   ```shell
-   > vi /etc/sysconfig/network/ifcfg-eth0  # 编辑文件（文件名对应到网卡）
-   BOOTPROTO='static'  #静态IP
-   BROADCAST=''  #广播地址
-   ETHTOOL_OPTIONS=''
-   IPADDR='192.168.51.51'  #IP地址
-   NETMASK='255.255.255.0'  #子网掩码
-   NETWORK=''  #网络地址
-   REMOTE_IPADDR=''
-   STARTMODE='auto'  #开机启动网络
-   USERCONTROL='no'
-   ```
+```shell
+> ifconfig eth0 192.168.51.51 netmask 255.255.255.0
+```
 
+重启生效：
 
-2. 设置网关
+```shell
+> vi /etc/sysconfig/network/ifcfg-eth0  # 编辑文件（文件名对应到网卡）
+BOOTPROTO='static'  #静态IP
+BROADCAST=''  #广播地址
+ETHTOOL_OPTIONS=''
+IPADDR='192.168.51.51'  #IP地址
+NETMASK='255.255.255.0'  #子网掩码
+NETWORK=''  #网络地址
+REMOTE_IPADDR=''
+STARTMODE='auto'  #开机启动网络
+USERCONTROL='no'
+```
+## 3.2 设置网关
 
-   ```shell
-   > vi /etc/sysconfig/network/routes  # 编辑文件
-   default 192.168.51.254 - - 
-   ```
+即时生效：
 
-3. 设置DNS
+```shell
+> route add default gw 192.168.51.254
+```
 
-   ```shell
-   > vi /etc/resolv.conf  # 编辑文件，末尾追加
-   nameserver 8.8.8.8
-   nameserver 8.8.4.4
-   ```
+重启生效：
 
-4. 重启网络
+```shell
+> vi /etc/sysconfig/network/routes  # 编辑文件
+default 192.168.51.254 - - 
+```
+## 3.3 设置DNS
 
-   ```shell
-   > rcnetwork restart
-   > service network restart
-   > /etc/init.d/network restart
-   ```
+重启生效：
 
-5. 关闭防火墙
+```shell
+> vi /etc/resolv.conf  # 编辑文件，末尾追加
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+```
+## 3.4 重启网络
 
-   ```shell
-   > rcSuSEfirewall2 stop
-   ```
+```shell
+> rcnetwork restart
+> service network restart
+> /etc/init.d/network restart
+```
+# 4. 关闭防火墙
 
+```shell
+> rcSuSEfirewall2 stop  # SUSE
+```
