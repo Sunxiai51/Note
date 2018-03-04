@@ -8,20 +8,35 @@ Jenkins部署的服务器没有连接外网时，可以通过下载 `.hpi` 文�
 
 以下为安装Jenkins Git插件时可行的安装顺序之一（由上至下）：
 
-structs
-credentials
-display-url-api
-mailer
-scm-api
-workflow-step-api
-workflow-scm-step
-workflow-api
-script-security
-junit
-matrix-project
-ssh-credentials
-apache-httpcomponents-client-4-api
-jsch
-git-client
-git
+- structs
+
+- credentials
+
+- display-url-api
+
+- mailer
+
+- scm-api
+
+- workflow-step-api
+
+- workflow-scm-step
+
+- workflow-api
+
+- script-security
+
+- junit
+
+- matrix-project
+
+- ssh-credentials
+
+- apache-httpcomponents-client-4-api
+
+- jsch
+
+- git-client
+
+- git
 
