@@ -39,4 +39,35 @@ Jenkins部署的服务器没有连接外网时，可以通过下载 `.hpi` 文�
 - git-client
 
 - git
+structs
+
+credentials
+
+display-url-api
+
+mailer
+
+scm-api
+
+workflow-step-api
+
+workflow-scm-step
+
+workflow-api
+
+script-security
+
+junit
+
+matrix-project
+
+ssh-credentials
+
+apache-httpcomponents-client-4-api
+
+jsch
+
+git-client
+
+git
 
