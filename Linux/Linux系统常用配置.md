@@ -8,15 +8,18 @@
 > lsb_release -a
 ```
 
-# 2. 安装JDK
-
-这里以安装路径为 `/usr/local/jdk1.8.0_161` 举例。
+# 2. 安装JDK、maven
 
 ```shell
 > vi /etc/profile  # 编辑文件，末尾追加
+
 export JAVA_HOME=/usr/local/jdk1.8.0_161
 export PATH=$JAVA_HOME/bin:$PATH
 export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+
+export MAVEN_HOME=/usr/local/apache-maven-3.5.0
+export PATH=${MAVEN_HOME}/bin:${PATH}
+
 > source /etc/profile  # 立即生效
 ```
 
