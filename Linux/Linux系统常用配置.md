@@ -20,23 +20,17 @@ export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 export MAVEN_HOME=/usr/local/apache-maven-3.5.0
 export PATH=${MAVEN_HOME}/bin:${PATH}
 
-> source /etc/profile  # 立即生效
+> source /etc/profile  # 使配置立即生效
 ```
 
 # 3. 设置网络
 
 ## 3.1 设置IP
 
-即时生效：
-
 ```shell
-> ifconfig eth0 192.168.51.51 netmask 255.255.255.0
-```
+> ifconfig eth0 192.168.51.51 netmask 255.255.255.0  # 即时生效
 
-重启生效：
-
-```shell
-> vi /etc/sysconfig/network/ifcfg-eth0  # 编辑文件（文件名对应到网卡）
+> vi /etc/sysconfig/network/ifcfg-eth0  # 编辑文件（文件名对应到网卡），重启生效
 BOOTPROTO='static'  #静态IP
 BROADCAST=''  #广播地址
 ETHTOOL_OPTIONS=''
@@ -49,24 +43,17 @@ USERCONTROL='no'
 ```
 ## 3.2 设置网关
 
-即时生效：
-
 ```shell
-> route add default gw 192.168.51.254
-```
+> route add default gw 192.168.51.254  # 即时生效
 
-重启生效：
-
-```shell
-> vi /etc/sysconfig/network/routes  # 编辑文件
+> vi /etc/sysconfig/network/routes  # 重启生效
 default 192.168.51.254 - - 
 ```
+
 ## 3.3 设置DNS
 
-重启生效：
-
 ```shell
-> vi /etc/resolv.conf  # 编辑文件，末尾追加
+> vi /etc/resolv.conf  # 重启生效，编辑文件，末尾追加
 nameserver 8.8.8.8
 nameserver 8.8.4.4
 ```
@@ -82,3 +69,10 @@ nameserver 8.8.4.4
 ```shell
 > rcSuSEfirewall2 stop  # SUSE
 ```
+
+# 5. 常用命令
+
+```shell
+> sed -i 's/\r//g' path/to/file  # 删除掉文件中所有的'\r'，等效于vim中set ff=unix
+```
+
