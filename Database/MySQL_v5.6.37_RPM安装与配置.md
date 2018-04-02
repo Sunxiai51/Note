@@ -137,3 +137,12 @@ mysql> exit
 mysql                     0:off  1:off  2:on   3:on   4:on   5:on   6:off
 ```
 
+## 4. 创建数据库与用户
+
+```sql
+CREATE DATABASE demo_db DEFAULT CHARACTER
+SET utf8 COLLATE utf8_bin;
+
+GRANT ALL ON demo_db.* TO 'demo_user'@'%' IDENTIFIED BY 'demo_password';
+```
+
