@@ -98,9 +98,10 @@ port            = 3306
 character_set_server=utf8
 character_set_client=utf8
 collation-server=utf8_general_ci
-lower_case_table_names=1 # 0：表名区分大小写，1：表名不区分大小写
-max_connections=1000 # 最大连接数，默认151，MySQL服务器允许的最大连接数16384
+lower_case_table_names=1  # 0：表名区分大小写，1：表名不区分大小写
+max_connections=1000  # 最大连接数，默认151，MySQL服务器允许的最大连接数16384
 sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
+skip-name-resolve  # 跳过DNS反向解析过程
 
 [mysql]
 default-character-set = utf8
