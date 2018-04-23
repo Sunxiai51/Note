@@ -67,7 +67,10 @@ nameserver 8.8.4.4
 # 4. 关闭防火墙
 
 ```shell
-> rcSuSEfirewall2 stop  # SUSE
+> rcSuSEfirewall2 stop  # SUSE 方法一
+---
+> service SuSEfirewall2_setup stop  # SUSE 方法二
+> service SuSEfirewall2_init  stop  # SUSE 方法二
 ```
 
 # 5. 常用命令
