@@ -2,7 +2,7 @@
 
 > 本文档参考并整理自：
 >
-> - Lepus官方文档  http://www.lepus.cc/manual/
+> - [官方文档 - Lepus(天兔)数据库监控系统在线手册](http://www.lepus.cc/manual/)
 > - [天兔(Lepus)数据库监控系统快速安装部署 - 51CTO](http://blog.51cto.com/suifu/1770493)
 >
 > 编写时间：2018-5-31 15:07:17
@@ -17,15 +17,15 @@
 
 以下软件包只需要部署在监控机即可。被监控机无需部署。
 
-1. MySQL 5.0及以上（必须,用来存储监控系统采集的数据）
-2. Apache 2.2及以上 （必须,WEB服务器运行服务器）
-3. PHP 5.3以上 （必须,提供WEB界面支持）
-4. Python2 （必须,推荐2.6及以上版本,执行数据采集和报警任务,不支持Python3）
+1. MySQL 5.0及以上（**必须**。用来存储监控系统采集的数据）
+2. Apache 2.2及以上 （**必须**。WEB服务器运行服务器）
+3. PHP 5.3以上 （**必须**。提供WEB界面支持）
+4. Python2 （**必须**。推荐2.6及以上版本，执行数据采集和报警任务，不支持Python3）
 5. Python连接和监控数据库的相关驱动模块包：
-   - MySQLdb for python （Python连接MySQL的接口，用于监控MySQL，此模块必须安装）
-   - cx_oracle for python  （Python连接Oracle的接口，非必须，如果需要监控oracle此模块必须安装）
-   - Pymongo for python （Python连接MongoDB的接口，非必须，如果需要监控MongoDB此模块必须安装）
-   - redis-py for python （Python连接Redis的接口，非必须，如果需要监控Redis此模块必须安装）
+   - MySQLdb for python （Python连接MySQL的接口，用于连接与监控MySQL。**此模块必须安装**）
+   - cx_oracle for python  （Python连接Oracle的接口，如果需要监控oracle需要安装此模块）
+   - Pymongo for python （Python连接MongoDB的接口，如果需要监控MongoDB需要安装此模块）
+   - redis-py for python （Python连接Redis的接口，非必须，如果需要监控Redis需要安装此模块）
 
 ## 1. 安装LAMP基础环境
 
