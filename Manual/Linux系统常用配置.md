@@ -68,6 +68,8 @@ nameserver 8.8.4.4
 ```
 ## 3.2 CentOS7设置网络 
 
+> 参考并整理自：[Centos7网络配置 - CSDN博客](https://blog.csdn.net/gebitan505/article/details/54584213)
+
 ### 3.2.1 设置网络（不通过网络管理器） 
 
 ```shell
