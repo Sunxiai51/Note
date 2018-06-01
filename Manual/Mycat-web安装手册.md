@@ -2,10 +2,7 @@
 
 本文档记录了安装Mycat-web-1.0的过程，附带了一些必要文件的下载链接。
 
-> 参考文档：
->
-> - [官方文档 - Lepus(天兔)数据库监控系统在线手册](http://www.lepus.cc/manual/)
-> - [天兔(Lepus)数据库监控系统快速安装部署 - 51CTO](http://blog.51cto.com/suifu/1770493)
+> 参考文档：[mycat 瑞士军刀mycat-web详解 - CSDN博客](https://blog.csdn.net/mchdba/article/details/51059547)
 >
 > 编写时间：2018-6-1 09:18:13
 
