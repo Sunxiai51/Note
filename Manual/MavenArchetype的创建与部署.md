@@ -1,4 +1,4 @@
-# Maven archetype的创建与部署
+# Maven Archetype的创建与部署
 
 本文档介绍了根据Java多模块maven项目创建archetype项目并将其部署到私服的过程。
 
