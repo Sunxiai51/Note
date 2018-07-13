@@ -133,3 +133,50 @@ mysql> GRANT all privileges ON *.* TO 'test'@'%';
 mysql> flush privileges;
 ```
 
+## 5. 初始化
+
+清空MySQL所有数据，恢复其初始安装状态。
+
+```shell
+> service mysql stop  # 停止服务
+Shutting down service MySQL:                                                   done
+> service mysql status
+Checking for service MySQL:                                                    unused
+> cd /var/lib/mysql  # 进入数据目录，清空
+> rm -rf ./*
+> mysqld --install --user=mysql  # 执行install
+> ll
+total 110716
+-rw-r----- 1 mysql mysql      215 Jul 13 08:53 ib_buffer_pool
+-rw-r----- 1 mysql mysql 50331648 Jul 13 08:53 ib_logfile0
+-rw-r----- 1 mysql mysql 50331648 Jul 13 08:53 ib_logfile1
+-rw-r----- 1 mysql mysql 12582912 Jul 13 08:53 ibdata1
+> service mysql start  # 启动服务报错，提示数据目录不为空
+... [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
+... [Warning] 'NO_ZERO_DATE', 'NO_ZERO_IN_DATE' and 'ERROR_FOR_DIVISION_BY_ZERO' sql modes should be used with strict mode. They will be merged with strict mode in a future release.
+... [Warning] 'NO_AUTO_CREATE_USER' sql mode was not set.
+... [ERROR] --initialize specified but the data directory has files in it. Aborting.
+... [ERROR] Aborting
+
+MySQL Database could not initialize data directory:                            unused
+> ll
+total 110748
+-rw------- 1 mysql mysql     1679 Jul 13 08:54 ca-key.pem
+-rw-r--r-- 1 mysql mysql     1107 Jul 13 08:54 ca.pem
+-rw-r--r-- 1 mysql mysql     1107 Jul 13 08:54 client-cert.pem
+-rw------- 1 mysql mysql     1675 Jul 13 08:54 client-key.pem
+-rw-r----- 1 mysql mysql      215 Jul 13 08:53 ib_buffer_pool
+-rw-r----- 1 mysql mysql 50331648 Jul 13 08:53 ib_logfile0
+-rw-r----- 1 mysql mysql 50331648 Jul 13 08:53 ib_logfile1
+-rw-r----- 1 mysql mysql 12582912 Jul 13 08:53 ibdata1
+-rw------- 1 mysql mysql     1675 Jul 13 08:54 private_key.pem
+-rw-r--r-- 1 mysql mysql      451 Jul 13 08:54 public_key.pem
+-rw-r--r-- 1 mysql mysql     1107 Jul 13 08:54 server-cert.pem
+-rw------- 1 mysql mysql     1679 Jul 13 08:54 server-key.pem
+> rm -rf ./*  # 再次清空数据目录
+> service mysql start  # 启动服务，成功
+Starting service MySQL:                                                        done
+
+# 查询日志文件获取初始root密码，进行配置
+```
+
