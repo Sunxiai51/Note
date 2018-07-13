@@ -48,10 +48,9 @@ MySQL-server-5.0.22-0.i386
 [mysqld]
 datadir=/var/lib/mysql
 socket=/var/lib/mysql/mysql.sock
-# Disabling symbolic-links is recommended to prevent assorted security risks
-symbolic-links=0
 log-error=/var/log/mysql/mysqld.log
 pid-file=/var/run/mysql/mysqld.pid
+symbolic-links=0
 port = 3306
 character_set_server=utf8
 collation-server=utf8_general_ci
@@ -59,6 +58,7 @@ lower_case_table_names=1 # 0：表名区分大小写，1：表名不区分大小
 max_connections=1000 # 最大连接数，默认151，MySQL服务器允许的最大连接数16384
 sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
 skip-name-resolve
+log_timestamps=SYSTEM
 
 [client]
 password = 123456
