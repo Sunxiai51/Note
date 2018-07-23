@@ -1,4 +1,4 @@
-# MySQL备份与恢复(XtraBackup)
+# MySQL部分备份与恢复(XtraBackup)
 
 ## 1. 版本
 
